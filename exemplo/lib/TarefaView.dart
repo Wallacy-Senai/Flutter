@@ -46,7 +46,7 @@ class ListaTarefasScreen extends StatelessWidget {
                     if (descricao.isNotEmpty) {
                       Provider.of<ListaTarefasController>(context,
                               listen: false)
-                          .adicionarTarefa(descricao, quantidade);
+                          .adicionarTarefa(descricao as BuildContext, quantidadeStr);
                       _controller.clear();
                       _quantidadeController.clear();
                     } else {

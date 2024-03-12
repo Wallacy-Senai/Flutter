@@ -95,4 +95,7 @@ class _JogoDaSorteState extends State<Jogo_da_sorte> {
       );
     }
   }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
