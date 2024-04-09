@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'banco_de_dados.dart';
 
-class LoginPage extends StatelessWidget {
+class PaginaLogin extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController senhaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,29 +12,36 @@ class LoginPage extends StatelessWidget {
         title: Text('Login'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-              ),
+              controller: emailController,
+              decoration: InputDecoration(labelText: 'Email'),
             ),
-            SizedBox(height: 20.0),
             TextField(
+              controller: senhaController,
+              decoration: InputDecoration(labelText: 'Senha'),
               obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-              ),
             ),
-            SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {
-                // Add login functionality here
+              child: Text('Entrar'),
+              onPressed: () async {
+                final String email = emailController.text;
+                final String senha = senhaController.text;
+
+                final List<Usuario> usuarios = await BancoDeDados.getUsuarios();
+                final usuarioEncontrado = usuarios.firstWhere(
+                  (usuario) => usuario.email == email && usuario.senha == senha,
+                  orElse: () => null,
+                );
+
+                if (usuarioEncontrado != null) {
+                  // Navegar para a próxima página
+                } else {
+                  // Mostrar erro
+                }
               },
-              child: Text('Login'),
             ),
           ],
         ),

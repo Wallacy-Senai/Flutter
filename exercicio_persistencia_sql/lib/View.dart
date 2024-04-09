@@ -144,5 +144,14 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       // Atualiza a lista de contatos
     });
+    
+
+    public void setNconta(int nconta) {
+        this.nconta = nconta;
+    }
+
+    public String getNome() {
+        return nome;
+    }
   }
 }

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'banco_de_dados.dart';
 
-class RegisterPage extends StatelessWidget {
+class PaginaCadastro extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController senhaController = TextEditingController();
+  final TextEditingController idController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,35 +13,32 @@ class RegisterPage extends StatelessWidget {
         title: Text('Cadastro'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             TextField(
-              decoration: InputDecoration(
-                labelText: 'Nome',
-              ),
+              controller: emailController,
+              decoration: InputDecoration(labelText: 'Email'),
             ),
-            SizedBox(height: 20.0),
             TextField(
-              decoration: InputDecoration(
-                labelText: 'Email',
-              ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
+              controller: senhaController,
+              decoration: InputDecoration(labelText: 'Senha'),
               obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Senha',
-              ),
             ),
-            SizedBox(height: 20.0),
+            TextField(
+              controller:idController,
+              decoration: InputDecoration(labelText: 'Id'),
+            ),
             ElevatedButton(
-              onPressed: () {
-                // Add register functionality here
-              },
               child: Text('Cadastrar'),
+              onPressed: () {
+                final String email = emailController.text;
+                final String senha = senhaController.text;
+                final int id = idController.text as int;
+
+                final Usuario novoUsuario = Usuario(email: email, senha: senha, id: id);
+                BancoDeDados.inserirUsuario(novoUsuario);
+              },
             ),
           ],
         ),
